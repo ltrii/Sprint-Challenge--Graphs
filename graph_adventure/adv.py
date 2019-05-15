@@ -49,30 +49,30 @@ player = Player("Name", world.startingRoom)
 # FILL THIS IN
 traversalPath = []
 
-# def graph_make(n):
-#     graph = []
-#     for i in range(0, n):
-#         graph.append([])
-#         for j in range(0, n):
-#             graph[i].append(False)
+graph = {}
 
-#     return graph
 
-# def path_traverse(n):
-#     path_traverse.counter = 0
-#     graph = graph_make(n)
+def bfs(graph, start, destination):
+    que = Queue()
+    visited = set()
+    que.enqueue([start])
 
-#     visited = lambda i, j: graph[i][j]
-    
-#     def traversal(i, j):
-#         if i == n - 1 and j == n - 1:
-#             path_traverse.counter
-#         if i < 0 or i >= n or j < 0 or j >= n
-#             return
-#         if visited(i,j):
-#             return
+    while que.size() > 0:
+        route = que.dequeue()
+        cur_room = route[-1]
+        if cur_room not in visited:
+            if cur_room == destination:
+                return route
+            visited.add(cur_room)
 
-#     print(visited)
+            for neighbor in graph[cur_room]:
+                side_room = graph[cur_room][neighbor]
+                next_route = list(route)
+                next_route.append(neighbor)
+                que.enqueue(next_route)
+
+    return None
+
         
 
 
