@@ -21,7 +21,34 @@ player = Player("Name", world.startingRoom)
 
 
 # FILL THIS IN
-traversalPath = ['n', 's']
+traversalPath = []
+
+# def graph_make(n):
+#     graph = []
+#     for i in range(0, n):
+#         graph.append([])
+#         for j in range(0, n):
+#             graph[i].append(False)
+
+#     return graph
+
+# def path_traverse(n):
+#     path_traverse.counter = 0
+#     graph = graph_make(n)
+
+#     visited = lambda i, j: graph[i][j]
+    
+#     def traversal(i, j):
+#         if i == n - 1 and j == n - 1:
+#             path_traverse.counter
+#         if i < 0 or i >= n or j < 0 or j >= n
+#             return
+#         if visited(i,j):
+#             return
+
+#     print(visited)
+        
+
 
 
 # TRAVERSAL TEST
