@@ -70,9 +70,9 @@ while len(list(visited)) < 499:
         visited[player.currentRoom.id].remove(reversed_route[-1])
     # Find a room to travel to
     while len(visited[player.currentRoom.id]) is 0 and len(reversed_route) > 0:
-        reversed = reversed_route.pop()
-        moves.append(reversed)
-        player.travel(reversed)
+        reverse = reversed_route.pop()
+        moves.append(reverse)
+        player.travel(reverse)
     move = visited[player.currentRoom.id].pop(0)
     reversed_route.append(reversed(move))
     moves.append(move)
