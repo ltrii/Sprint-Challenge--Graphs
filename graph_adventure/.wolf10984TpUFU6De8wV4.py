@@ -48,7 +48,7 @@ player = Player("Name", world.startingRoom)
 
 # FILL THIS IN
 
-def reversed(pre):
+def reverse(pre):
     if pre is 'n':
         return 's' 
     elif pre is 's':
@@ -59,22 +59,22 @@ def reversed(pre):
         return 'e'
 
 visited = {}
-visited[player.currentRoom.id] = player.currentRoom.getExits()
-reversed_route = []
+visited[player.cur_room.id] = player.cur_room.getExits()
+reverse_route = []
 moves = []
 
 while len(list(visited)) < 499:
     #If not in visited then add to
-    if player.currentRoom.id not in visited:
-        visited[player.currentRoom.id] = player.currentRoom.getExits()
-        visited[player.currentRoom.id].remove(reversed_route[-1])
+    if player.cur_room.id not in visited:
+        visited[player.cur_room.id] = player.cur_room.getExits()
+        visited[player.cur_room.id].remove(reverse_route[-1])
     # Find a room to travel to
-    while len(visited[player.currentRoom.id]) is 0 and len(reversed_route) > 0:
-        reversed = reversed_route.pop()
-        moves.append(reversed)
-        player.travel(reversed)
-    move = visited[player.currentRoom.id].pop(0)
-    reversed_route.append(reversed(move))
+    while len(visited[player.cur_room.id]) is 0 and len(reverse_route) > 0:
+        reverse = reverse_route.pop()
+        moves.append(reverse)
+        player.travel(reverse)
+    move = visited[player.cur_room.id].pop(0)
+    reverse_route.append(reverse(move))
     moves.append(move)
     player.travel(move)
 
@@ -82,11 +82,11 @@ traversalPath = moves
 
 # TRAVERSAL TEST
 visited_rooms = set()
-player.currentRoom = world.startingRoom
-visited_rooms.add(player.currentRoom)
+player.cur_room = world.startingRoom
+visited_rooms.add(player.cur_room)
 for move in traversalPath:
     player.travel(move)
-    visited_rooms.add(player.currentRoom)
+    visited_rooms.add(player.cur_room)
 
 if len(visited_rooms) == len(roomGraph):
     print(f"TESTS PASSED: {len(traversalPath)} moves, {len(visited_rooms)} rooms visited")
