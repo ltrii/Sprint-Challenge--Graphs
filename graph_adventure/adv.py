@@ -47,35 +47,51 @@ player = Player("Name", world.startingRoom)
 
 
 # FILL THIS IN
-traversalPath = []
 
-graph = {}
+def reversed(pre):
+    if pre is 'n':
+        return 's' 
+    elif pre is 's':
+        return 'n'
+    elif pre is 'e':
+        return 'w'
+    elif pre is 'w':
+        return 'e'
+
+visited = {}
+visited[player.currentRoom.id] = player.currentRoom.getExits()
+reversed_route = []
+moves = []
+unex = []
+mem = {}
+mem[player.currentRoom.id] = {}
+last = player.currentRoom.id
+
+while len(list(visited)) < 499:
+    if player.currentRoom.id not in mem:
+        mem[player.currentRoom.id] = {}
+    #If not in visited then add to
+    if player.currentRoom.id not in visited:
+        visited[player.currentRoom.id] = player.currentRoom.getExits()
+        visited[player.currentRoom.id].remove(reversed_route[-1])
+    if len(visited[player.currentRoom.id]) is not 0:
+        unex.append(player.currentRoom.id)
+    elif player.currentRoom.id in unex:
+        unex.remove(player.currentRoom.id)
+    # Find a room to travel to
+    while len(visited[player.currentRoom.id]) is 0 and len(reversed_route) > 0:
+        reverse = reversed_route.pop()
+        moves.append(reverse)
+        player.travel(reverse)
+    lastRoom = player.currentRoom.id
+    move = visited[player.currentRoom.id].pop(0)
+    reversed_route.append(reversed(move))
+    moves.append(move)
+    player.travel(move)
+    mem[last][move] = player.currentRoom.id
 
 
-def bfs(graph, start, destination):
-    que = Queue()
-    visited = set()
-    que.enqueue([start])
-
-    while que.size() > 0:
-        route = que.dequeue()
-        cur_room = route[-1]
-        if cur_room not in visited:
-            if cur_room == destination:
-                return route
-            visited.add(cur_room)
-
-            for neighbor in graph[cur_room]:
-                side_room = graph[cur_room][neighbor]
-                next_route = list(route)
-                next_route.append(neighbor)
-                que.enqueue(next_route)
-
-    return None
-
-        
-
-
+traversalPath = moves
 
 # TRAVERSAL TEST
 visited_rooms = set()
